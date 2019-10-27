@@ -8,7 +8,7 @@ import { throwError, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ValidationPipe } from './../shared/validation.pipe';
 
-@Controller('ideas')
+@Controller('api/ideas')
 export class IdeasController {
     constructor(private ideaService: IdeasService) {
 

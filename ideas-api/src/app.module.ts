@@ -6,9 +6,10 @@ import { IdeasModule } from './ideas/ideas.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpErrorFilter } from './shared/http-errors.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), IdeasModule],
+  imports: [TypeOrmModule.forRoot(), IdeasModule, UserModule],
   controllers: [AppController],
   providers: [AppService, {
     provide: APP_FILTER,

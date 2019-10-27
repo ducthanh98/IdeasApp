@@ -3,12 +3,11 @@ import { Catch, ExceptionFilter, HttpException, ArgumentsHost, Logger } from '@n
 @Catch()
 export class HttpErrorFilter implements ExceptionFilter {
     catch(exception: HttpException, host: ArgumentsHost) {
-        console.log(exception)
         const ctx = host.switchToHttp();
-
         const response = ctx.getResponse();
         const request = ctx.getRequest();
-        const status = exception.getStatus();
+        console.log(exception)
+        const status = exception.getStatus() || 400;
         const errorResponse = {
             code: status,
             timestamp: new Date().toLocaleDateString(),
