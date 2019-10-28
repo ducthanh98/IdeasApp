@@ -1,14 +1,15 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, HttpException, HttpStatus, Res, Logger, UsePipes } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, HttpException, HttpStatus, Res, Logger, UsePipes, UseGuards } from '@nestjs/common';
 import { IdeasService } from './ideas.service';
 import { IdeaDTO } from './idea.dto';
-import { Response } from 'express';
 import { ResponseData } from '../shared/ResponseData';
 import { IdeaEntity } from './idea.entity';
-import { throwError, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { ValidationPipe } from './../shared/validation.pipe';
+import { AuthGuard } from './../shared/auth.guard';
 
 @Controller('api/ideas')
+@UseGuards(new AuthGuard())
+
 export class IdeasController {
     constructor(private ideaService: IdeasService) {
 
