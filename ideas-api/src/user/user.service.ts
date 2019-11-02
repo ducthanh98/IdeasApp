@@ -12,12 +12,13 @@ export class UserService {
         return from(this.userRepository.find());
     }
 
-    async login(data: UserDTO) {
+    async login(req, data: UserDTO) {
         const { username, password } = data;
         const user = await this.userRepository.findOne({ where: { username } });
         if (!user || !(await user.comparePassword(password))) {
             throw new HttpException('Invalid username/password', HttpStatus.BAD_REQUEST);
         }
+        req.user = user;
         return user.toResponseObject(true);
     }
     async register(data: UserDTO) {

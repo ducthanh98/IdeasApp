@@ -7,8 +7,10 @@ export class ValidationPipe implements PipeTransform<any> {
         if (value instanceof Object && this.isEmpty(value)) {
             throw new HttpException('Validation Failed: No body submitted', HttpStatus.BAD_REQUEST);
         }
-        const { metatype } = metadata;
-        if (!metatype || !this.toValidate(metatype)) {
+        const { metatype, type } = metadata;
+        if (type === 'custom') {
+            return value;
+        } else if (!metatype || !this.toValidate(metatype)) {
             return false;
         }
         const object = plainToClass(metatype, value);

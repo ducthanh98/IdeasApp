@@ -6,10 +6,10 @@ import { IdeaEntity } from './idea.entity';
 import { Observable } from 'rxjs';
 import { ValidationPipe } from './../shared/validation.pipe';
 import { AuthGuard } from './../shared/auth.guard';
+import { User } from './../user/user.decorator';
 
 @Controller('api/ideas')
 @UseGuards(new AuthGuard())
-
 export class IdeasController {
     constructor(private ideaService: IdeasService) {
 
@@ -20,8 +20,8 @@ export class IdeasController {
     }
     @Post()
     @UsePipes(new ValidationPipe())
-    createIdea(@Body() data: IdeaDTO) {
-        return this.ideaService.create(data);
+    async createIdea(@Body() data: IdeaDTO, @User('id') id: string) {
+        return this.ideaService.create(id, data);
     }
     @Get(':id')
     getById(@Param('id') id: string) {
