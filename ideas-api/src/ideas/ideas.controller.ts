@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { ValidationPipe } from './../shared/validation.pipe';
 import { AuthGuard } from './../shared/auth.guard';
 import { User } from './../user/user.decorator';
+import { IdeaRO } from './idea.ro';
 
 @Controller('api/ideas')
 @UseGuards(new AuthGuard())
@@ -15,8 +16,9 @@ export class IdeasController {
 
     }
     @Get()
-    showAllIdeas(): Observable<IdeaEntity[]> {
-        return this.ideaService.showAll();
+    async showAllIdeas(): Promise<IdeaRO[]> {
+        const ideas = await this.ideaService.showAll();
+        return ideas.map(idea => idea.toReponseObject());
     }
     @Post()
     @UsePipes(new ValidationPipe())
@@ -36,5 +38,13 @@ export class IdeasController {
     delete(@Param('id') id: string) {
         return this.ideaService.delete(id);
     }
+    @Get('upvote/:id')
+    upvoteIdea(@Param('id') id: string, @User('id') userId: string) {
+        return this.ideaService.upvote(id, userId);
+    }
 
+    @Get('downvote/:id')
+    downvoteIdea(@Param('id') id: string, @User('id') userId: string) {
+        return this.ideaService.downvotes(id, userId);
+    }
 }

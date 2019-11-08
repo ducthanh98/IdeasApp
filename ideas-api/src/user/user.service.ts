@@ -14,7 +14,7 @@ export class UserService {
 
     async login(req, data: UserDTO) {
         const { username, password } = data;
-        const user = await this.userRepository.findOne({ where: { username } });
+        const user = await this.userRepository.findOne({ where: { username }, relations: ['bookmarks'] });
         if (!user || !(await user.comparePassword(password))) {
             throw new HttpException('Invalid username/password', HttpStatus.BAD_REQUEST);
         }
