@@ -1,9 +1,6 @@
 import { Controller, Get, Post, Body, Param, Put, Delete, HttpException, HttpStatus, Res, Logger, UsePipes, UseGuards } from '@nestjs/common';
 import { IdeasService } from './ideas.service';
 import { IdeaDTO } from './idea.dto';
-import { ResponseData } from '../shared/ResponseData';
-import { IdeaEntity } from './idea.entity';
-import { Observable } from 'rxjs';
 import { ValidationPipe } from './../shared/validation.pipe';
 import { AuthGuard } from './../shared/auth.guard';
 import { User } from './../user/user.decorator';

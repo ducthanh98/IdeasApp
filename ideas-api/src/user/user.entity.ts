@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert, OneToMany, UpdateDateColumn, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert, OneToMany, UpdateDateColumn, ManyToMany, JoinTable } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { IdeaEntity } from './../ideas/idea.entity';
-import { UserRO } from "./user.ro";
+import { UserRO } from './user.ro';
+import { CommentEntity } from './../comment/comment.entity';
 
 @Entity('user')
 export class UserEntity {

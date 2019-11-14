@@ -1,4 +1,4 @@
-import { IdeaEntity } from 'src/ideas/idea.entity';
+import { IdeaEntity } from './../ideas/idea.entity';
 
 export class UserRO {
     id: string;

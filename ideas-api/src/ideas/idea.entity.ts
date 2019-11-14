@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, UpdateDateColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, UpdateDateColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { UserEntity } from './../user/user.entity';
 import { IdeaRO } from './idea.ro';
+import { CommentEntity } from './../comment/comment.entity';
 
 @Entity('idea')
 export class IdeaEntity {
@@ -21,8 +22,10 @@ export class IdeaEntity {
     @UpdateDateColumn()
     updated: Date;
 
+    @OneToMany(type => CommentEntity, comments => comments.idea)
+    comments: CommentEntity[];
+
     toReponseObject(): IdeaRO {
-        this.created.toString();
         const { id, idea, description, created, updated, author, upvotes, downvotes } = this;
         const responseObject: IdeaRO = {
             id,
